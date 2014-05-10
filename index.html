@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style type="text/css">
+     code { font-size: 24px; }
+    </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="akka-typed-channels" class="slide level1">
+<h1>Akka Typed Channels</h1>
+<p><a href="http://github.com/drostron">Dave Rostron</a> – <a href="http://twitter.com/yastero"><code>@yastero</code></a></p>
+<p>May 14, 2014</p>
+</section>
+<section class="slide level1">
+
+<p>Actors you say, why bother…</p>
+</section>
+<section class="slide level1">
+
+<p>brief actor intro, what they are and why we care</p>
+<blockquote>
+<p>The Actor Model provides a higher level of abstraction for writing concurrent and distributed systems. It alleviates the developer from having to deal with explicit locking and thread management, making it easier to write correct concurrent and parallel systems.</p>
+<p>– Akka Docs</p>
+</blockquote>
+<p>hmm, distribution sounds useful, tell me more</p>
+</section>
+<section class="slide level1">
+
+<p>quick std akka distributed example here</p>
+<p>would be nice to have a virtualized 2-3 machine setup (stretch goal)</p>
+</section>
+<section class="slide level1">
+
+<p>wat!? Any ⇒ Unit</p>
+</section>
+<section class="slide level1">
+
+<p>-!-&gt;</p>
+<p>or how I learned to calm my Any ⇒ Unit woes</p>
+</section>
+<section class="slide level1">
+
+<p>incrementer old way</p>
+<pre class="sourceCode scala" contenteditable="true"><code class="sourceCode scala"><span class="kw">package</span> bozzy
+
+<span class="kw">import</span> akka.<span class="fu">actor</span>.<span class="fu">Actor</span>
+
+<span class="kw">class</span> WoeCalculator <span class="kw">extends</span> Actor {
+  <span class="kw">def</span> receive = {
+    <span class="kw">case</span> <span class="fu">Add</span>(a,b) ⇒
+      sender ! a + b
+    <span class="kw">case</span> Addˆ(a,b) ⇒
+      sender ! (a + b).<span class="fu">toString</span>
+    <span class="kw">case</span> Double(a) ⇒
+      sender ! a * <span class="dv">2</span>
+    <span class="kw">case</span> i ⇒
+      <span class="fu">println</span>(s<span class="st">&quot;WoeCalculator received unsupported message: $i&quot;</span>)
+  }
+}</code></pre>
+<pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> i = <span class="st">&quot;not editable?&quot;</span></code></pre>
+</section>
+<section class="slide level1">
+
+<p>channels incrementer non-generic or generic?</p>
+</section>
+<section class="slide level1">
+
+<p>show where compiler error on invalid inputs</p>
+</section>
+<section class="slide level1">
+
+<p>some explanation of channel within actor, channel refs, channelref wrapped actor, parent in type sig, channel lists</p>
+</section>
+<section class="slide level1">
+
+<p>stretch goal : implementation overview, a fun way to demo the power of macros and reflection</p>
+</section>
+<section class="slide level1">
+
+<p>careats:</p>
+<p>move this elsewhere</p>
+<p>show an example, before upgrading recreate the issue, create a sub-project to show the issue on current versions</p>
+<p><del>type safety. I ran into it. you will too. there is hope: keep tabs on SI-6240</del></p>
+<p>fixed in 2.11, yay!</p>
+<p>just use: scala &gt; 2.11 akka &gt; ???</p>
+</section>
+<section class="slide level1">
+
+<h3 id="further-investigations">further investigations</h3>
+<ul>
+<li>macro implementation</li>
+<li>…</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'serif', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

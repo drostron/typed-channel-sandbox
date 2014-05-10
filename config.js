@@ -1,0 +1,3 @@
+Reveal.configure({
+  controls: false
+});
