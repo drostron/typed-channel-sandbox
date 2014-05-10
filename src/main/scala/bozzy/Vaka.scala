@@ -65,16 +65,14 @@ object Vaka {
 
   // TODO : pass collection and function
 
-  implicit
-
-  def runParOpsˆ(i:Int, j:Int) = run { system ⇒
+  def runParOpsˆ(i:Int, j:Int, k: Int = 25) = run { system ⇒
     import system.dispatcher
     implicit val timeout = Timeout(5 seconds)
 
     // TODO : dead letters? something to do with "an ask request that is done by the "endpoint glue"".
 
     val routees = (0 to j).map { i ⇒
-      Thread.sleep(25) // Thread safety hack
+      Thread.sleep(k) // Thread safety hack
       ChannelExt(system).actorOf(new Executor[Int,Int], s"executor-$i").actorRef
     }.toList
     val executorRouter = system.actorOf(Props.empty.withRouter(RoundRobinRouter(routees = routees)))

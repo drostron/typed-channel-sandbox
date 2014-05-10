@@ -20,12 +20,6 @@ hmm, distribution sounds useful, tell me more
 
 -----
 
-quick std akka distributed example here
-
-would be nice to have a virtualized 2-3 machine setup (stretch goal)
-
------
-
 wat!? Any ⇒ Unit
 
 -----
@@ -36,39 +30,15 @@ or how I learned to calm my Any ⇒ Unit woes
 
 -----
 
-incrementer old way
+old way
 
-~~~{.scala contenteditable=true}
-package bozzy
-
-import akka.actor.Actor
-
-class WoeCalculator extends Actor {
-  def receive = {
-    case Add(a,b) ⇒
-      sender ! a + b
-    case Addˆ(a,b) ⇒
-      sender ! (a + b).toString
-    case Double(a) ⇒
-      sender ! a * 2
-    case i ⇒
-      println(s"WoeCalculator received unsupported message: $i")
-  }
-}
-~~~
-
-~~~{.scala}
-val i = "not editable?"
-~~~
+show runtime errors
 
 -----
 
-channels incrementer
-non-generic or generic?
+typed channel way
 
------
-
-show where compiler error on invalid inputs
+show compiler error on invalid inputs
 
 -----
 
@@ -82,12 +52,8 @@ stretch goal : implementation overview, a fun way to demo the power of macros an
 
 careats:
 
-move this elsewhere
-
-show an example, before upgrading recreate the issue, create a sub-project to show the issue on current versions
-
-~~type safety. I ran into it. you will too.
-there is hope: keep tabs on SI-6240~~
+type safety. I ran into it. you will too.
+there is hope: keep tabs on SI-6240
 
 fixed in 2.11, yay!
 
@@ -95,8 +61,6 @@ just use:
 scala > 2.11
 akka > ???
 
------
+Typed Channels have been removed from Akka, boo!
 
-### further investigations
-- macro implementation
-- …
+-----
