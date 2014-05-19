@@ -8,6 +8,13 @@ May 14, 2014
 
 Actors you say, why bother...
 
+<aside class="notes">
+a note, is this thing on?, it doesn't update?
+
+- hmm, notes, could be useful, the div tag seems a bit verbose but perhaps ok
+- audience reaction?...
+</aside>
+
 -----
 
 brief actor intro, what they are and why we care
